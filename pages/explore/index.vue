@@ -105,12 +105,6 @@ const entries: QuickEntry[] = [
           注册登录后可以发表文章、评论互动，在个人中心管理你的内容。
         </p>
       </CyberAlert>
-      <CyberAlert variant="info">
-        <p>
-          <strong>冒险玩法：</strong>
-          登录后进入「冒险」页签到、做任务、抽奖开宝箱，阅读评论也能推进任务进度，解锁称号与头像框。
-        </p>
-      </CyberAlert>
     </div>
   </CyberPageContainer>
 </template>
