@@ -1,3 +1,9 @@
+# pnpm 11+ uses allowBuilds (map); keep onlyBuiltDependencies for pnpm 10 compatibility
+allowBuilds:
+  core-js: true
+  esbuild: true
+  unrs-resolver: true
+  vue-demi: true
 onlyBuiltDependencies:
   - core-js
   - esbuild
