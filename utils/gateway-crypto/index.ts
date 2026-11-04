@@ -123,14 +123,3 @@ export function openGatewayEnvelope(
   logTimingSince(`openGatewayEnvelope(${alg}) total`, t0);
   return JSON.parse(plain);
 }
-
-/**
- * 按套件加密登录密码字段（aes→RSA，gm→SM2），输出小写 Hex。
- */
-export function encryptLoginPassword(plainPassword: string): string {
-  const t0 = Date.now();
-  const alg = getGatewayAlg();
-  const out = getSuite(alg).publicEncrypt(plainPassword);
-  logTimingSince(`encryptLoginPassword(${alg})`, t0);
-  return out;
-}
