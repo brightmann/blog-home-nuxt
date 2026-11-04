@@ -3,6 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { buildThemeBootScript } from './constants/theme-tone';
 import { scripts } from './config';
 import { SiteTitle } from './utils/constant';
+import { mockArticles } from './server/utils/mock-blog';
 
 const prefixPath = process.env.VITE_NUXT_PREFIX_PATH || '/api';
 const originUrl = process.env.VITE_NUXT_ORIGIN_URL || '';
@@ -18,6 +19,12 @@ const proxyTarget = originUrl && apiPrefix ? `${originUrl}${apiPrefix}` : '';
 console.warn('当前环境: ', process.env.VITE_ENV);
 // 子集字体 cache bust；npm run font:subset 且字符集变化后递增
 const FONT_SUBSET_VERSION = '1';
+
+// Static (GitHub Pages) build: article list shows 5 posts per page (see
+// components/article-list.vue), so /page/2..N must be prerendered explicitly.
+const STATIC_PAGE_SIZE = 5;
+const staticPageCount = Math.max(1, Math.ceil(mockArticles.length / STATIC_PAGE_SIZE));
+const staticPaginationRoutes = Array.from({ length: staticPageCount - 1 }, (_, i) => `/page/${i + 2}`);
 // console.warn({ 当前环境自定义配置: configs });
 export default defineNuxtConfig({
   modules: [
@@ -38,6 +45,8 @@ export default defineNuxtConfig({
   },
   devtools: { enabled: false },
   app: {
+    // GitHub Pages project site builds pass NUXT_APP_BASE_URL=/blog-home-nuxt/
+    baseURL: process.env.NUXT_APP_BASE_URL || '/',
     head: {
       link: [
         {
@@ -102,6 +111,17 @@ export default defineNuxtConfig({
   compatibilityDate: '2025-07-14',
   // 此文件只能用process
   nitro: {
+    // Prerendering only for the static GitHub Pages build (NUXT_APP_BASE_URL
+    // set by the Pages workflow); the Render SSR build skips it entirely.
+    prerender: process.env.NUXT_APP_BASE_URL
+      ? {
+          crawlLinks: true,
+          failOnError: false,
+          // /page/N uses router.push (no <a> hrefs), so the crawler cannot find
+          // paginated routes; list them explicitly from the mock article count.
+          routes: ['/', ...staticPaginationRoutes],
+        }
+      : { crawlLinks: false, routes: [] },
     output: {
       // dir: '', // 这个是配置总的输出路径
       // serverDir: '.output/server',
