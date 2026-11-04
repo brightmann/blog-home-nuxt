@@ -51,9 +51,8 @@ const scrollToArticles = () => {
 };
 
 const heroStats = computed(() => [
-  { value: articleTotalLabel.value, label: '技术文章', gradient: false },
-  { value: toolCountLabel, label: '实用工具', gradient: false },
-  { value: '8 大', label: 'RPG 冒险玩法', gradient: true },
+  { value: articleTotalLabel.value, label: '技术文章' },
+  { value: toolCountLabel, label: '实用工具' },
 ]);
 </script>
 
@@ -73,13 +72,13 @@ const heroStats = computed(() => [
                 class="home-hero-brand-icon site-logo-badge flex shrink-0 items-center justify-center rounded-md"
                 aria-hidden="true"
               >
-                <span class="leading-none select-none">⚔️</span>
+                <span class="leading-none select-none">📖</span>
               </div>
               <div
                 class="flex min-w-0 items-center gap-2 pr-0.5 text-sm leading-snug text-tech-muted md:text-base"
               >
                 <span class="home-hero-status-dot h-1.5 w-1.5 shrink-0 rounded-full bg-success" />
-                <span>Blog × RPG · 签到 · 任务 · 抽奖 · 排行榜</span>
+                <span>Brite's Blog · 技术分享与生活记录</span>
               </div>
             </div>
           </div>
@@ -105,19 +104,12 @@ const heroStats = computed(() => [
             class="home-hero-cta mx-auto flex w-full max-w-3xl shrink-0 flex-col items-center text-center"
           >
             <p class="home-hero-tagline max-w-2xl text-sm text-tech-muted md:text-base">
-              技术博客，也是冒险世界
+              个人技术博客
               <span class="mx-1.5 text-tech-subtle">·</span>
-              读文章 · 做任务 · 冲排行榜
+              读文章 · 逛工具 · 欢迎留言
             </p>
 
             <div class="home-hero-buttons flex flex-wrap items-center justify-center gap-3">
-              <CyberButton
-                variant="primary"
-                to="/rpg"
-                class="home-hero-btn !border-[var(--rpg-amber-border)]"
-              >
-                ⚔️ 开始冒险
-              </CyberButton>
               <CyberButton variant="secondary" class="home-hero-btn" @click="scrollToArticles">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -139,10 +131,7 @@ const heroStats = computed(() => [
 
             <div class="home-hero-stats flex flex-wrap items-center justify-center gap-6 md:gap-10">
               <div v-for="stat in heroStats" :key="stat.label" class="text-center">
-                <div
-                  class="home-hero-stat-value font-bold"
-                  :class="stat.gradient ? 'home-hero-gradient-text' : 'text-primary'"
-                >
+                <div class="home-hero-stat-value font-bold text-primary">
                   {{ stat.value }}
                 </div>
                 <div class="mt-1 text-xs text-tech-subtle md:text-sm">
@@ -153,8 +142,6 @@ const heroStats = computed(() => [
           </div>
         </div>
       </section>
-
-      <RpgHomeBanner first-screen class="home-first-screen-banner" />
     </div>
 
     <section id="articles" class="mx-auto max-w-6xl px-3 pb-16 pt-8 sm:px-4">
@@ -227,7 +214,7 @@ const heroStats = computed(() => [
     50% {
       box-shadow:
         0 0 0 1px color-mix(in oklch, var(--color-primary) 12%, transparent),
-        0 0 3px color-mix(in oklch, var(--rpg-amber) 10%, transparent);
+        0 0 3px color-mix(in oklch, var(--color-primary) 10%, transparent);
     }
   }
 
@@ -322,24 +309,6 @@ const heroStats = computed(() => [
 
   .home-hero-stat-value {
     font-size: clamp(0.9375rem, 0.45vw + 0.75rem, 1.25rem);
-  }
-
-  .home-first-screen-banner {
-    flex: 0 0 auto;
-    margin-top: auto;
-  }
-
-  .home-hero-gradient-text {
-    background: linear-gradient(
-      to right,
-      var(--tech-gradient-from),
-      var(--rpg-amber-light),
-      var(--tech-gradient-to)
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
   }
 
   /* 大屏：舞台区更突出 */
@@ -459,10 +428,6 @@ const heroStats = computed(() => [
 
     .home-hero-stats {
       gap: 1.5rem;
-    }
-
-    .home-first-screen-banner {
-      margin-top: 1rem;
     }
   }
 </style>

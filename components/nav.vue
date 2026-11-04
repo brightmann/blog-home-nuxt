@@ -234,12 +234,10 @@ function isNavActive(path: string) {
         @click="clickIcon"
         @keydown.enter="clickIcon"
       />
-      <RpgAudioControl class="hidden sm:inline-flex" />
       <XiaTheme />
 
       <ClientOnly>
         <NavNotificationBell />
-        <RpgNavHud v-if="isLoggedIn" class="mr-1" />
         <CyberButton v-if="!isLoggedIn" variant="primary" to="/login" class="!px-4 !py-2 text-sm">
           登录
         </CyberButton>
@@ -258,14 +256,6 @@ function isNavActive(path: string) {
             </li>
             <li>
               <NuxtLink to="/user/profile" class="text-tech-muted hover:text-tech">个人中心</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink
-                to="/rpg"
-                class="font-semibold text-[var(--rpg-amber-light)] hover:text-[var(--rpg-amber-light)]"
-              >
-                ⚔️ RPG 冒险
-              </NuxtLink>
             </li>
             <li @click="clear">
               <a class="text-tech-muted hover:text-tech">退出</a>
