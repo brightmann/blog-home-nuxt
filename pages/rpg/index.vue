@@ -429,21 +429,6 @@ const onLeaveGuild = async () => {
 
       <div v-if="!isLoggedIn" class="mb-6 space-y-4">
         <RpgPreviewDemo />
-        <div
-          class="flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[var(--rpg-border)] bg-[var(--rpg-bg-alt)] px-4 py-3"
-        >
-          <p class="text-sm text-[var(--rpg-text-body)]">
-            登录后即可保存冒险进度、签到升级、领取任务奖励
-          </p>
-          <div class="flex gap-2">
-            <CyberButton variant="primary" to="/login" class="!px-4 !py-2 text-sm">
-              登录开启冒险
-            </CyberButton>
-            <CyberButton variant="secondary" to="/register" class="!px-4 !py-2 text-sm">
-              注册
-            </CyberButton>
-          </div>
-        </div>
       </div>
 
       <div v-else class="rpg-page-toolbar">
