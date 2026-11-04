@@ -30,7 +30,7 @@ const coreModules: FeatureModule[] = [
   {
     icon: '💬',
     title: '评论与互动',
-    desc: '文章评论与回复、收藏点赞（需登录），互动数据驱动 RPG 经验与文章成长。',
+    desc: '文章评论与回复、收藏点赞（需登录），互动数据让文章更有活力。',
     tags: ['评论', '收藏', '点赞'],
     to: '/',
     color: 'from-violet-500 to-purple-500',
@@ -39,7 +39,7 @@ const coreModules: FeatureModule[] = [
   {
     icon: '👤',
     title: '用户中心',
-    desc: '个人资料编辑、前台文章创作、公开主页展示 RPG 状态与互动记录。',
+    desc: '个人资料编辑、前台文章创作、公开主页展示互动记录。',
     tags: ['注册登录', '个人主页', '发文'],
     to: '/user/profile',
     color: 'from-emerald-500 to-teal-500',
@@ -48,7 +48,7 @@ const coreModules: FeatureModule[] = [
   {
     icon: '🔗',
     title: '友链与留言',
-    desc: '友情链接申请与展示、树形留言板，支持回复与 RPG 经验联动。',
+    desc: '友情链接申请与展示、树形留言板，支持回复。',
     tags: ['友链', '留言板'],
     to: '/msgboard',
     color: 'from-pink-500 to-rose-500',
@@ -64,17 +64,6 @@ const coreModules: FeatureModule[] = [
     span: 'md:col-span-4',
   },
 ];
-
-const rpgModule: FeatureModule = {
-  icon: '⚔️',
-  title: 'RPG 冒险体系',
-  desc: '签到升级、成就任务、背包装扮、抽奖 Buff、钻石经济、公会赛季与排行榜——博客即冒险世界。',
-  tags: ['签到', '任务', '抽奖', '钻石', '公会', '排行榜'],
-  to: '/rpg',
-  color: 'from-amber-500 to-orange-500',
-  span: 'md:col-span-12',
-  highlight: true,
-};
 
 const experienceModules: FeatureModule[] = [
   {
@@ -107,9 +96,9 @@ const experienceModules: FeatureModule[] = [
   {
     icon: '📡',
     title: '实时推送',
-    desc: 'Socket.IO /realtime 命名空间，升级、成就、禁言、站内通知等即时推送。',
+    desc: 'Socket.IO /realtime 命名空间，站内通知等即时推送。',
     tags: ['WebSocket'],
-    to: '/rpg',
+    to: '/',
     color: 'from-red-500 to-orange-500',
     span: 'md:col-span-6',
   },
@@ -122,51 +111,8 @@ const toolCount = TOOL_LINKS.length;
   <CyberPageContainer
     label="FEATURES"
     title="博客系统特性"
-    subtitle="内容创作、RPG 游戏化、实用工具与交互体验，一站俱全"
+    subtitle="内容创作、实用工具与交互体验，一站俱全"
   >
-    <!-- RPG 核心亮点 -->
-    <CyberCard hover class="group relative mb-6 overflow-hidden !p-6 md:!p-8">
-      <div
-        class="pointer-events-none absolute -right-8 -top-8 h-32 w-32 rounded-full bg-gradient-to-br opacity-20 blur-2xl"
-        :class="rpgModule.color"
-      />
-      <div class="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-        <div class="flex-1">
-          <div class="mb-3 flex items-center gap-3">
-            <div
-              :class="[
-                'flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br text-2xl shadow-lg',
-                rpgModule.color,
-              ]"
-            >
-              {{ rpgModule.icon }}
-            </div>
-            <div>
-              <span class="cyber-feature-tag mb-1">核心玩法</span>
-              <h3 class="text-2xl font-bold text-tech md:text-3xl">
-                <span class="cyber-gradient-text">{{ rpgModule.title }}</span>
-              </h3>
-            </div>
-          </div>
-          <p class="mb-4 max-w-2xl text-sm leading-relaxed text-tech-muted md:text-base">
-            {{ rpgModule.desc }}
-          </p>
-          <div class="flex flex-wrap gap-2">
-            <span v-for="tag in rpgModule.tags" :key="tag" class="cyber-feature-tag">{{
-              tag
-            }}</span>
-          </div>
-        </div>
-        <div class="flex shrink-0 flex-col gap-2 sm:flex-row md:flex-col">
-          <NuxtLink to="/rpg" class="no-underline">
-            <CyberButton variant="primary">进入冒险中心</CyberButton>
-          </NuxtLink>
-          <NuxtLink to="/features/rpg-guide" class="no-underline">
-            <CyberButton variant="secondary" class="w-full"> 查看完整攻略 </CyberButton>
-          </NuxtLink>
-        </div>
-      </div>
-    </CyberCard>
 
     <!-- 博客核心 -->
     <CyberSectionHeader
@@ -281,7 +227,7 @@ const toolCount = TOOL_LINKS.length;
       <CyberCard
         v-for="(step, i) in [
           { title: '浏览与阅读', desc: '首页发现文章，归档按时间浏览，详情页收藏点赞。' },
-          { title: '注册参与 RPG', desc: '登录后进入冒险中心签到、做任务，解锁装扮与成就。' },
+          { title: '注册互动', desc: '注册登录后评论、收藏与点赞文章。' },
           { title: '创作与工具', desc: '个人中心发文，工具箱使用 AI 摘要、加密等效率工具。' },
         ]"
         :key="step.title"

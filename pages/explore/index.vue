@@ -45,15 +45,6 @@ const entries: QuickEntry[] = [
     span: 'md:col-span-4',
   },
   {
-    icon: '⚔️',
-    title: 'RPG 冒险',
-    desc: '签到升级、任务奖励、抽奖开宝箱，解锁称号与头像框。',
-    tags: ['签到', '任务', '抽奖'],
-    to: '/rpg',
-    color: 'from-amber-500 to-orange-500',
-    span: 'md:col-span-4',
-  },
-  {
     icon: '📦',
     title: '开源与合作',
     desc: '三端项目说明、后端闭源政策与付费技术咨询入口。',

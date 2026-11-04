@@ -15,6 +15,7 @@ import {
   updateLikesHandle,
   isArticleLiked,
   syncUserLikes,
+  formactDate,
 } from '@/utils/common';
 import { ensureLoggedIn } from '@/composables/use-common';
 import { resolveStaticUrl } from '@/utils/static-url';
@@ -307,14 +308,36 @@ watch(
 
 <template>
   <div class="article-detail">
-    <RpgArticleDetailHero
-      :article="ArticleInfo"
-      :tag-label="tagLabel"
-      :tags="ArticleInfo.tags"
-      :author-uid="Number(ArticleInfo.uid)"
-      :article-id="ArticleInfo.id"
-      @like="updateLikesHandle(ArticleInfo)"
-    />
+    <header class="mx-auto w-full max-w-5xl px-4 pt-8">
+      <div class="cyber-glass-card rounded-2xl p-6 text-center md:p-8">
+        <h1 class="text-2xl font-bold leading-snug text-tech md:text-3xl">
+          {{ ArticleInfo.title }}
+        </h1>
+        <div
+          class="mt-4 flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm text-tech-muted"
+        >
+          <span>{{ ArticleInfo.views }} 阅读</span>
+          <span>{{ ArticleInfo.likes }} 点赞</span>
+          <span v-if="ArticleInfo.uTime">更新于 {{ formactDate(ArticleInfo.uTime) }}</span>
+        </div>
+        <div
+          v-if="ArticleInfo.category?.label || (ArticleInfo.tags && ArticleInfo.tags.length)"
+          class="mt-4 flex flex-wrap items-center justify-center gap-2"
+        >
+          <span
+            v-if="ArticleInfo.category?.label"
+            class="badge badge-sm border border-tech bg-tech-header text-tech-muted"
+            >{{ ArticleInfo.category.label }}</span
+          >
+          <span
+            v-for="tag in ArticleInfo.tags"
+            :key="tag.id"
+            class="badge badge-sm border border-tech bg-tech-header text-tech-muted"
+            >{{ tag.label }}</span
+          >
+        </div>
+      </div>
+    </header>
     <div class="main-view-area mx-auto w-full px-4 py-8">
       <div class="article-layout">
         <section class="main-content cyber-glass-card min-w-0 rounded-2xl p-3 md:p-5">
@@ -429,13 +452,6 @@ watch(
       :auto-hide="true"
       :topics="topics"
       style="top: 70px"
-    />
-    <RpgArticleRpgFab
-      v-if="ArticleInfo.id && ArticleInfo.uid"
-      :article-id="ArticleInfo.id"
-      :author-uid="Number(ArticleInfo.uid)"
-      :article="ArticleInfo"
-      @tipped="onTipped"
     />
   </div>
 </template>
