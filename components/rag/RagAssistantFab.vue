@@ -79,7 +79,6 @@ function scrollMessagesToBottom(smooth = false) {
 const openPanel = async () => {
   if (!(await ensureLoggedIn())) {
     messageError('请先登录后使用 AI 助手');
-    await goLogin();
     return;
   }
   panelOpen.value = true;
