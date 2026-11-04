@@ -188,7 +188,6 @@ const nextActivity = () => {
 const ensureLogin = async () => {
   if (!userInfo.value?.uid) {
     messageError('请先登录');
-    await navigateTo('/login');
     return false;
   }
   return true;
