@@ -19,20 +19,6 @@ const postUploadMedia = async (file: File, category: UploadMediaCategory) => {
   return request.post(`/resources/upload-media?category=${category}`, form);
 };
 
-/** 注册页上传头像（无需登录） */
-export const uploadRegisterAvatar = async (file: File, currentAvatarUrl?: string) => {
-  if (currentAvatarUrl && (await isSameAvatarContent(file, currentAvatarUrl))) {
-    messageInfo('头像未变更');
-    return [{ url: toStaticPath(currentAvatarUrl) }];
-  }
-  const { file: compressed, contentHash } = await compressAndHashImage(file, 'avatar');
-  const form = new FormData();
-  form.append('fileContents', compressed);
-  form.append('contentHash', contentHash);
-  form.append('category', 'avatar');
-  return request.post('/resources/upload-media/register-avatar', form);
-};
-
 /** 修改头像（需登录） */
 export const uploadAvatar = async (file: File, currentAvatarUrl?: string) => {
   if (currentAvatarUrl && (await isSameAvatarContent(file, currentAvatarUrl))) {
