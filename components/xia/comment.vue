@@ -91,17 +91,6 @@ const tip = () => {
       description: '需要登录才能评论哦',
       color: 'warning',
       duration: 4000,
-      actions: [
-        {
-          icon: 'i-lucide-log-in',
-          label: '去登录',
-          color: 'info',
-          variant: 'outline',
-          onClick: async () => {
-            await goLogin();
-          },
-        },
-      ],
     });
   }
   else {
