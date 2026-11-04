@@ -95,12 +95,6 @@ const scrollTo = (id: string) => {
           <NuxtLink to="/" class="hidden text-sm font-medium text-white no-underline sm:inline">
             进入博客
           </NuxtLink>
-          <NuxtLink
-            to="/login"
-            class="liquid-glass rounded-full px-5 py-2 text-sm font-medium text-white no-underline sm:px-6"
-          >
-            登录
-          </NuxtLink>
         </div>
       </div>
     </nav>
