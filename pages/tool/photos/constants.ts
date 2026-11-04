@@ -1,3 +1,5 @@
+import { resolveStaticUrl } from '@/utils/static-url';
+
 export interface PhotoSettings {
   padding: number;
   blur: number;
@@ -80,7 +82,7 @@ export function resolveLogoName(make: string, override = ''): string {
 }
 
 export function getLogoUrl(name: string): string {
-  return name ? `/images/photos/logo/${name}.png` : '';
+  return name ? resolveStaticUrl(`/images/photos/logo/${name}.png`) : '';
 }
 
 export const MAX_PHOTOS = 50;
