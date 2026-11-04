@@ -86,7 +86,6 @@ export const mockArticles: MockArticle[] = [
     likes: 6,
     commentCount: 0,
     top: 0,
-    topping: 1,
     checked: 0,
     category: cat(3),
     tags: tags(5),
