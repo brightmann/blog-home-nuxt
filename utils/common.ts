@@ -140,7 +140,6 @@ export const updateLikesHandle = async (item: any) => {
   const { uid } = useUserInfo().value;
   if (!uid) {
     messageError('请先登录');
-    await goLogin();
     return;
   }
   const id = normalizeArticleLikeId(item.id);
@@ -186,7 +185,6 @@ export const toggleCollectHandle = async (
   const { uid } = useUserInfo().value;
   if (!uid) {
     messageError('请先登录');
-    await goLogin();
     return null;
   }
   const res = await toggleCollect(articleId);
