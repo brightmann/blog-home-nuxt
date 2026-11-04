@@ -45,7 +45,6 @@ const goTop = () => {
 const ensureLogin = async () => {
   if (!userInfo.value?.uid) {
     messageError('请先登录');
-    await goLogin();
     return false;
   }
   return true;
