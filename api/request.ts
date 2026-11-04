@@ -729,11 +729,4 @@ async function refreshToken(): Promise<RefreshTokenResult | null> {
   return refreshPromise;
 }
 
-// 导出所有方法
-export function resetAuthRefreshState() {
-  refreshUnavailable = false;
-  sessionExpireNotified = false;
-  refreshPromise = null;
-}
-
-export default { http: $http, get, post, put, patch, del, awaitWrap, resetAuthRefreshState };
+export default { http: $http, get, post, put, patch, del, awaitWrap };
