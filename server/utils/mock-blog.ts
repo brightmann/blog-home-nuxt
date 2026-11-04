@@ -85,7 +85,7 @@ export const mockArticles: MockArticle[] = [
     views: 128,
     likes: 6,
     commentCount: 0,
-    top: 1,
+    top: 0,
     topping: 1,
     checked: 0,
     category: cat(3),
@@ -148,7 +148,8 @@ console.log('你好，世界');
     id: 3,
     uid: 1,
     title: 'Building a Blog with Nuxt 4',
-    description: 'Notes on how this site is put together: Nuxt 4, Vue 3, Tailwind CSS 4 and SSR on Render.',
+    description:
+      'Notes on how this site is put together: Nuxt 4, Vue 3, Tailwind CSS 4 and SSR on Render.',
     cover: '/images/covers/c3.svg',
     createTime: '2026-10-25T10:00:00.000Z',
     uTime: '2026-10-26T08:00:00.000Z',
@@ -182,7 +183,8 @@ take about a minute to wake up.
     id: 4,
     uid: 1,
     title: 'Why Server-Side Rendering Matters',
-    description: 'SSR gives faster first paint and better SEO. Here is what that means in practice.',
+    description:
+      'SSR gives faster first paint and better SEO. Here is what that means in practice.',
     cover: '/images/covers/c4.svg',
     createTime: '2026-10-27T16:00:00.000Z',
     uTime: '2026-10-27T16:00:00.000Z',
@@ -247,7 +249,8 @@ Sometimes a slow weekend is the most productive one.
     id: 6,
     uid: 1,
     title: 'Markdown Rendering Test',
-    description: 'A quick tour of the markdown features this blog supports: lists, tables, quotes and code.',
+    description:
+      'A quick tour of the markdown features this blog supports: lists, tables, quotes and code.',
     cover: '/images/covers/c6.svg',
     createTime: '2026-11-01T11:00:00.000Z',
     uTime: '2026-11-01T11:00:00.000Z',
@@ -328,7 +331,10 @@ export const relatedArticles = (id: number, limit = 6) => {
 };
 
 export const archiveTree = () => {
-  const byYear = new Map<string, Map<string, Array<{ id: number; title: string; createTime: string }>>>();
+  const byYear = new Map<
+    string,
+    Map<string, Array<{ id: number; title: string; createTime: string }>>
+  >();
   for (const a of sortedArticles()) {
     const d = new Date(a.createTime);
     const year = String(d.getUTCFullYear());

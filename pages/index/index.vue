@@ -16,7 +16,7 @@ const { data: gushiciData } = await useAsyncData('gushici_Get', () => gushici(),
 const { data: indexArticleData } = await useAsyncData('index_GetList', () =>
   getArticleList({
     page: 1,
-    pageSize: 12,
+    pageSize: 5,
     client: true,
     sort: 'DESC',
     category: '',

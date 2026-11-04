@@ -31,6 +31,8 @@ const props = withDefaults(
     presetKeyword?: string;
     hideSidebar?: boolean;
     asyncDataKey?: string;
+    /** 初始页码（/page/N 路由分页用，默认第 1 页） */
+    initialPage?: number;
   }>(),
   {
     embedMode: false,
@@ -39,6 +41,7 @@ const props = withDefaults(
     presetKeyword: '',
     hideSidebar: false,
     asyncDataKey: 'index_GetList',
+    initialPage: 1,
   },
 );
 
@@ -64,10 +67,10 @@ const articleListDefault: any[] = [];
 const articleList = ref(articleListDefault);
 
 const queryPrams: queryState = reactive({
-  page: 1,
+  page: props.initialPage,
   category: '',
   tags: [],
-  pageSize: 12,
+  pageSize: 5,
   total: 0,
   title: '',
   description: '',
@@ -95,10 +98,16 @@ if (props.presetKeyword) {
    * 分类和标签才会在服务渲染(useAsyncData后执行的函数)
    */
 
+// /page/N 的列表缓存 key 带页码，避免与首页第 1 页的 index_GetList 互相覆盖
+const effectiveAsyncDataKey
+  = props.asyncDataKey === 'index_GetList' && props.initialPage > 1
+    ? `index_GetList_page_${props.initialPage}`
+    : props.asyncDataKey;
+
 const {
   // 这样生命的变量时响应式的，不这样声明请求回来复制不然渲染到模板上
   data: articleData,
-} = await useAsyncData(props.asyncDataKey, () =>
+} = await useAsyncData(effectiveAsyncDataKey, () =>
   getArticleList({
     ...queryPrams,
     tags: [...queryPrams.tags],
@@ -239,9 +248,21 @@ const visibleCardTags = (tags: any[] = []) => tags.slice(0, MAX_VISIBLE_CARD_TAG
 
 const hiddenCardTagCount = (tags: any[] = []) => Math.max(0, tags.length - MAX_VISIBLE_CARD_TAGS);
 // 分页
-const current = ref(1);
+const current = ref(props.initialPage);
+// 有筛选/搜索/排序时保持前端分页；默认列表走 /page/N 真实路由
+const hasClientFilters = () =>
+  !!queryPrams.title
+  || !!queryPrams.description
+  || !!queryPrams.content
+  || !!queryPrams.category
+  || queryPrams.tags.length > 0
+  || queryPrams.sort !== 'DESC';
 const currentChangeHandle = (val: number) => {
   current.value = val;
+  if (!props.embedMode && !hasClientFilters()) {
+    router.push(val <= 1 ? '/' : `/page/${val}`);
+    return;
+  }
   getArticleListHandle(val);
 };
 
