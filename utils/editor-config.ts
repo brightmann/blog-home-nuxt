@@ -49,6 +49,11 @@ export function ensureEditorConfig(): void {
           + '/x-blog/api/v1/static/uploads/2024-04/fd20c758948743f0addd3e9f31fb946c-mermaid.min.js',
       },
     },
+    // Enable raw HTML in markdown (e.g. YouTube iframe embeds in posts).
+    // Native HTML is off by default in md-editor-v3; content is repo-controlled.
+    markdownItConfig(md: any) {
+      md.set({ html: true });
+    },
     mermaidConfig(base: any) {
       return {
         ...base,
