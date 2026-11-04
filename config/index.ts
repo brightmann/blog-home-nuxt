@@ -24,11 +24,9 @@ else {
 const staticOriginUrl = ViteEnv.VITE_NUXT_STATIC_ORIGIN_URL || 'https://jiang-xia.top';
 const staticBaseUrl = isEnv ? '' : `${staticOriginUrl}/x-api/blog-server`;
 
-const scripts = [
-  // 百度统计脚本 - 仅保留首页必需的统计脚本
-  { defer: true, src: 'https://hm.baidu.com/hm.js?9c1165af167360b492031753308c3878' },
-  // 其他脚本已改为按需加载，请参考 utils/script-loader.ts
-];
+// Standalone edition: upstream's Baidu analytics script removed
+// (it reported to the original author's tracking account).
+const scripts: Array<Record<string, string>> = [];
 
 interface configState {
   iconfonrUrl: string;

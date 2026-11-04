@@ -90,6 +90,10 @@ export default defineNuxtConfig({
   routeRules: {
     '/tool': { redirect: '/tool/sm' },
     '/photos': { redirect: '/tool/photos' },
+    // Standalone edition: RPG gamification needs the upstream backend's
+    // accounts/payments, so its pages redirect home.
+    '/rpg': { redirect: '/' },
+    '/rpg/**': { redirect: '/' },
   },
   devServer: {
     // 证书安装 https://zhuanlan.zhihu.com/p/678165318

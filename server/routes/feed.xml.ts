@@ -1,33 +1,15 @@
 /**
  * RSS 订阅 feed.xml
- * 数据源：POST /x-blog/api/v1/article/list 最近 50 篇；供搜索引擎与 RSS 阅读器抓取
+ * Standalone edition: items come from the local content store
+ * (server/utils/mock-blog.ts) instead of the upstream blog-server.
  */
 import { getRequestURL } from 'h3';
 
 export default defineEventHandler(async (event) => {
   const config = useRuntimeConfig();
   const origin = config.public.siteOrigin || getRequestURL(event).origin;
-  const apiPrefix = process.env.VITE_NUXT_API_PREFIX || '/x-blog/api/v1';
-  const apiBase = `${origin}${apiPrefix}`;
 
-  let articles: Array<{
-    id: number;
-    title: string;
-    description?: string;
-    createTime?: string;
-    uTime?: string;
-  }> = [];
-
-  try {
-    const res = await $fetch<any>(`${apiBase}/article/list`, {
-      method: 'POST',
-      body: { page: 1, pageSize: 50, client: true, sort: 'DESC' },
-    });
-    articles = res?.data?.list ?? res?.list ?? [];
-  }
-  catch {
-    articles = [];
-  }
+  const articles = sortedArticles().slice(0, 50);
 
   const escapeXml = (str: string) =>
     String(str || '')
@@ -53,9 +35,9 @@ export default defineEventHandler(async (event) => {
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0">
 <channel>
-  <title>江夏的个人博客</title>
+  <title>Brite's Blog</title>
   <link>${origin}</link>
-  <description>技术分享与生活记录</description>
+  <description>Brite's Blog</description>
   <language>zh-CN</language>
   ${items}
 </channel>
