@@ -114,5 +114,13 @@
     "socket.io-client": {
       "socket.io-parser": "4.2.7"
     }
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "core-js",
+      "esbuild",
+      "unrs-resolver",
+      "vue-demi"
+    ]
   }
 }
