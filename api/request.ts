@@ -1,6 +1,7 @@
 import type { ApiResponse } from './ApiResponse';
 import { baseUrl } from '~~/config';
 import { messageDanger } from '~~/utils/toast';
+import { getStaticAppBase } from '~~/utils/static-url';
 import { setToken, getToken, removeToken, TokenKey, RefreshTokenKey } from '@/utils/cookie';
 import { readAccessToken, readRefreshToken } from '@/utils/auth-token-state';
 import {
@@ -227,6 +228,12 @@ function shouldSkipRequestDebounce(url: string, body: unknown, method = 'GET'): 
   // FormData 无法稳定序列化，同 URL 并发上传（如文章多图）不应被误判为重复请求
   return isMultipartBody(body);
 }
+
+/**
+ * GitHub Pages 纯静态部署（app.baseURL 为子路径，如 /blog-home-nuxt/）没有后端 API：
+ * 请求必然 404/405，全局错误 toast 纯属噪音，予以抑制（Promise 仍 reject，调用方自行兜底）。
+ */
+const isStaticSiteMode = (): boolean => getStaticAppBase() !== '/';
 
 /**
  * 根据HTTP状态码和响应信息生成用户友好的错误提示
@@ -488,7 +495,7 @@ const $http = async (url: string, options: any & RequestHttpOptions): Promise<Ap
           errorMessage = '请求发送失败，请检查网络连接';
         }
 
-        if (!silent) {
+        if (!silent && !isStaticSiteMode()) {
           // silent 时由调用方展示页面级错误（如 Cyber 404），不在 SSR 弹 toast
           messageDanger(errorMessage);
         }
@@ -584,7 +591,7 @@ const $http = async (url: string, options: any & RequestHttpOptions): Promise<Ap
           else {
             // 全局错误提示处理；reject 时附带 statusCode 供上层区分 404 等场景
             const errorMessage = getErrorMessage(status, body?.message, url);
-            if (!silent) {
+            if (!silent && !isStaticSiteMode()) {
               messageDanger(errorMessage);
             }
             safeReject(body ?? { statusCode: status, message: errorMessage });
@@ -593,7 +600,7 @@ const $http = async (url: string, options: any & RequestHttpOptions): Promise<Ap
         catch (error) {
           if (isNetworkError(error)) {
             const errorMessage = getNetworkErrorMessage(error);
-            if (!silent) {
+            if (!silent && !isStaticSiteMode()) {
               messageDanger(errorMessage);
             }
             safeReject(error);
