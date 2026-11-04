@@ -743,7 +743,7 @@ watch(articleList, syncAuthorLevels, { immediate: true });
                         class="avatar btn btn-ghost btn-circle btn-xs ring-1 ring-transparent transition-all group-hover:ring-primary/50"
                       >
                         <div class="rounded-full">
-                          <img :src="item.userInfo.avatar" :alt="item.userInfo.nickname">
+                          <img :src="resolveStaticUrl(item.userInfo.avatar)" :alt="item.userInfo.nickname">
                         </div>
                       </div>
                       <span class="link link-hover">{{ item.userInfo.nickname }}</span>
@@ -757,7 +757,7 @@ watch(articleList, syncAuthorLevels, { immediate: true });
                       <div class="inline-flex items-center gap-1.5">
                         <div class="avatar btn btn-ghost btn-circle btn-xs">
                           <div class="rounded-full">
-                            <img :src="item.userInfo.avatar" :alt="item.userInfo.nickname">
+                            <img :src="resolveStaticUrl(item.userInfo.avatar)" :alt="item.userInfo.nickname">
                           </div>
                         </div>
                         <span>{{ item.userInfo.nickname }}</span>
@@ -912,7 +912,7 @@ watch(articleList, syncAuthorLevels, { immediate: true });
                 <xia-image
                   class="size-9 rounded-box"
                   lazyload
-                  :src="comment.userInfo.avatar"
+                  :src="resolveStaticUrl(comment.userInfo.avatar)"
                   :title="comment.userInfo.nickname"
                 />
               </NuxtLink>
@@ -920,7 +920,7 @@ watch(articleList, syncAuthorLevels, { immediate: true });
                 v-else
                 class="size-9 rounded-box"
                 lazyload
-                :src="comment.userInfo.avatar"
+                :src="resolveStaticUrl(comment.userInfo.avatar)"
                 :title="comment.userInfo.nickname"
               />
             </div>
