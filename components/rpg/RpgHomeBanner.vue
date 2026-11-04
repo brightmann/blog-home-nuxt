@@ -35,9 +35,9 @@ const gameplaySteps = [
   },
 ];
 
-const ctaTo = computed(() => (isLoggedIn.value ? '/rpg' : '/login'));
+const ctaTo = computed(() => '/rpg');
 const ctaText = computed(() => {
-  if (!isLoggedIn.value) return '登录开启冒险';
+  if (!isLoggedIn.value) return '进入冒险大厅';
   if (claimableQuests.value.length > 0) return `领取 ${claimableQuests.value.length} 个任务奖励`;
   if (signInfo.value && !signInfo.value.signedToday) return '今日签到领 EXP';
   return '进入冒险大厅';
