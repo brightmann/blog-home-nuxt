@@ -25,33 +25,9 @@ const { openRechargeModal, openLegacyRechargeModal } = useRpgRecharge();
       class="mb-4 sm:mb-6"
       label="LAB"
       title="开发测试"
-      subtitle="RPG WS 挡板、UI 组件与工具链本地验证"
+      subtitle="UI 组件与工具链本地验证"
     />
     <div class="test-page space-y-4 sm:space-y-6">
-      <CyberToolCard title="RPG WS 事件挡板" width-class="w-full">
-        <p class="test-card-desc">
-          注入 <code class="test-code">/realtime</code> 事件（开发/生产均可用本页），走全站
-          <code class="test-code">use-rpg-realtime-handlers</code>
-          与站内通知监听链（Toast、全屏弹窗、角标）。需先登录。
-        </p>
-        <RpgDevEventPanel />
-      </CyberToolCard>
-
-      <CyberToolCard title="RPG 钻石充值弹窗" width-class="w-full max-w-md">
-        <p class="test-card-desc">
-          全站钻石不足默认弹出<strong>动态小程序码</strong>（建单 → 扫码 → WS 到账）。
-          旧版静态码已下线，本页可预览归档组件；线上请走支付宝小程序 all-pay 并透传 out_trade_no。
-        </p>
-        <div class="flex flex-wrap gap-2">
-          <button type="button" class="btn btn-sm btn-primary" @click="openRechargeModal">
-            动态小程序码
-          </button>
-          <button type="button" class="btn btn-sm btn-outline" @click="openLegacyRechargeModal">
-            预览归档静态码
-          </button>
-        </div>
-      </CyberToolCard>
-
       <div class="test-grid">
         <CyberToolCard title="Toast 提示" width-class="w-full">
           <ToastLab />
