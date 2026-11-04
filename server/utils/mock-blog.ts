@@ -287,6 +287,25 @@ const greet = (name: string): string => \`Hello, \${name}!\`;
 \`\`\`
 `,
   },
+ {
+    id: 7,
+    uid: 1,
+    title: '战马',
+    description: '这是一篇文章',
+    cover: '/images/covers/c3.svg',
+    createTime: '2026-11-03T21:37:00.000Z',
+    uTime: '2026-11-03T21:37:00.000Z',
+    views: 215,
+    likes: 12,
+    commentCount: 0,
+    top: 0,
+    checked: 0,
+    category: cat(1),
+    tags: tags(1, 2, 3),
+    userInfo: AUTHOR,
+    content: `<iframe width="713" height="401" src="https://www.youtube.com/embed/asKQbk7AcJU" title="崔伟立原唱《战马》完整版 歌曲旋律优美，句句入耳入心超好听" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+`,
+  },
 ];
 
 // Keep newest first, topped articles pinned to the front.
