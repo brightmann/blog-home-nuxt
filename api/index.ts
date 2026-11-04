@@ -59,11 +59,6 @@ export const gushici = async () => {
 
   return GUSHICI_FALLBACK;
 };
-/** 注册页可选头像（公开，无需登录） */
-export const getRegisterAvatars = (): Promise<{ avatars: string[] }> => {
-  return request.get('/resources/register-avatars');
-};
-
 const api = {
   ...tag,
   ...category,
@@ -71,7 +66,6 @@ const api = {
   getUserInfo,
   updateUserProfile,
   gushici,
-  getRegisterAvatars,
 };
 // https://gitee.com/api/v5/repos/jiang-xia/blog-home-nuxt/commits?access_token=53db1802db341bf994093cace04c275b&page=1&per_page=20
 export default api;
