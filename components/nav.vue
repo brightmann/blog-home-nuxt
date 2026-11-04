@@ -9,16 +9,13 @@
 
 <script setup lang="ts">
 import { ref, reactive, computed, watch } from 'vue';
-import Yaya from '../assets/images/animal/yaya.svg';
 import { getArticleList } from '@/api/article';
 import { debounce } from '~~/utils';
-import { TokenKey, RefreshTokenKey, getToken, removeToken } from '@/utils/cookie';
-import { useRealtimeSocket } from '~~/composables/use-realtime-socket';
+import { TokenKey, getToken } from '@/utils/cookie';
 import { isDarkTheme, useThemeActions } from '@/composables/use-home';
 import { NAV_LINKS } from '@/utils/constant';
 
-const { token, userInfo, isLoggedIn, sync: syncAuthSession } = useAuthSession();
-const refreshTokenState = useRefreshToken();
+const { token, sync: syncAuthSession } = useAuthSession();
 // 主题相关逻辑重构
 const { theme, clickIcon, initTheme, disposeTheme } = useThemeActions();
 const themeToggleIcon = computed(() => (isDarkTheme(theme.value) ? 'blog-light' : 'blog-dark'));
@@ -130,16 +127,7 @@ const onSearchHandle = debounce(() => {
   }
 }, 300);
 
-const { disconnect: disconnectRealtimeSocket } = useRealtimeSocket();
 const clearUserInfoFn = useClearUserInfo();
-const clear = () => {
-  token.value = '';
-  refreshTokenState.value = '';
-  removeToken(TokenKey);
-  removeToken(RefreshTokenKey);
-  clearUserInfoFn();
-  disconnectRealtimeSocket();
-};
 watch(token, (newToken) => {
   if (!import.meta.client) return;
   if (!newToken && !getToken(TokenKey)) {
@@ -238,30 +226,6 @@ function isNavActive(path: string) {
 
       <ClientOnly>
         <NavNotificationBell />
-        <CyberButton v-if="!isLoggedIn" variant="primary" to="/login" class="!px-4 !py-2 text-sm">
-          登录
-        </CyberButton>
-        <div v-else class="dropdown dropdown-end">
-          <label tabindex="0" class="btn btn-ghost btn-circle avatar">
-            <div class="w-9 rounded-full">
-              <img :src="userInfo.avatar || Yaya" :alt="userInfo.nickname">
-            </div>
-          </label>
-          <ul
-            tabindex="0"
-            class="menu menu-sm dropdown-content z-50 mt-2 w-36 rounded-xl border p-2 text-xs shadow-xl backdrop-blur-md"
-          >
-            <li>
-              <NuxtLink to="/user/article/edit" class="text-tech-muted hover:text-tech">写文章</NuxtLink>
-            </li>
-            <li>
-              <NuxtLink to="/user/profile" class="text-tech-muted hover:text-tech">个人中心</NuxtLink>
-            </li>
-            <li @click="clear">
-              <a class="text-tech-muted hover:text-tech">退出</a>
-            </li>
-          </ul>
-        </div>
       </ClientOnly>
     </template>
   </CyberNavBar>
